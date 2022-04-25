@@ -21,6 +21,7 @@ jobs:
           git config --global user.name "GitHub Actions"
           git checkout --orphan gh-pages
           cd frontend
+          npm install
           npm run build
           cd ..
           git --work-tree frontend/dist add --all
