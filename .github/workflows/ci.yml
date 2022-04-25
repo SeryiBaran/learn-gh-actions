@@ -7,7 +7,6 @@ jobs:
       - uses: actions/checkout@v2
       - name: Create file
         run: cat frontend/dist/index.html > index.html
-      - name: Commit
       - name: push
         uses: github-actions-x/commit@v2.9
         with:
