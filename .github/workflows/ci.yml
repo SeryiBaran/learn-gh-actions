@@ -28,5 +28,5 @@ jobs:
           git --work-tree frontend/dist commit -m 'Deploy'
           git push origin HEAD:gh-pages --force
           rm -r frontend/dist
-          git checkout -f master
+          git checkout -f main
           git branch -D gh-pages
