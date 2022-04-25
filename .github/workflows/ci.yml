@@ -22,5 +22,10 @@ jobs:
           cd frontend
           npm install
           npm run build
+          cp -r dist /tmp/DIST
           cd ..
-          git subtree push --prefix frontend/dist origin gh-pages
+          git checkout -b gh-pages
+          cp -r /tmp/DIST/. ./
+          git add .
+          git commit -m "Deploy"
+          git push origin gh-pages
