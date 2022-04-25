@@ -1,11 +1,26 @@
-name: Push commit
-on: push
+name: build
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 jobs:
-  report:
+  build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [16.x]
     steps:
       - uses: actions/checkout@v2
-      - name: ssssss
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Build and deploy
         run: |
           git config --global user.name "GitHub Actions"
+          cd frontend
+          npm install
+          npm run build
+          cd ..
           git subtree push --prefix frontend/dist origin gh-pages
