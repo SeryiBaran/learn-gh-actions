@@ -1,9 +1,9 @@
 name: build
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -19,14 +19,13 @@ jobs:
       - name: Build and deploy
         run: |
           git config --global user.name "GitHub Actions"
+          git checkout --orphan gh-pages
           cd frontend
-          npm install
           npm run build
-          cp -r dist /tmp/DIST
           cd ..
-          git checkout -b gh-pages
-          find . -exec rm -rf {} \;
-          cp -r /tmp/DIST/. ./
-          git add .
-          git commit -m "Deploy"
-          git push origin gh-pages
+          git --work-tree frontend/dist add --all
+          git --work-tree frontend/dist commit -m 'Deploy'
+          git push origin HEAD:gh-pages --force
+          rm -r frontend/dist
+          git checkout -f master
+          git branch -D gh-pages
