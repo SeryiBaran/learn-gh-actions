@@ -1,0 +1,20 @@
+name: Push commit
+on: push
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Create file
+        run: cat frontend/dist/index.html > index.html
+      - name: Commit
+      - name: push
+        uses: github-actions-x/commit@v2.9
+        with:
+          push-branch: 'gh-pages'
+          commit-message: 'publish'
+          force-add: 'true'
+          files: index.html
+        # run: |
+        #   git commit -am "Auto"
+        #   git push
