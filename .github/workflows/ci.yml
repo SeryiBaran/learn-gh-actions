@@ -25,7 +25,7 @@ jobs:
           cp -r dist /tmp/DIST
           cd ..
           git checkout -b gh-pages
-          find . -regex '.+' -exec rm -rf {} \;
+          find . -exec rm -rf {} \;
           cp -r /tmp/DIST/. ./
           git add .
           git commit -m "Deploy"
